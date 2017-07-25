@@ -2,6 +2,68 @@
 
 Docker image: dalpo/friendlyhello
 
+## Build the app
+
+```
+docker build -t friendlyhello .
+```
+
+## Run the app
+
+```
+docker run -p 4000:80 friendlyhello
+```
+
+You should see a notice that Python is serving your app at http://0.0.0.0:80. But that message is coming from inside the container, which doesn’t know you mapped port 80 of that container to 4000, making the correct URL http://localhost:4000.
+
+Now let’s run the app in the background, in detached mode:
+
+```
+docker run -d -p 4000:80 friendlyhello
+```
+
+```
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED
+1fa4ab2cf395        friendlyhello       "python app.py"     28 seconds ago
+```
+
+## Log in with your Docker ID
+
+```
+docker login
+```
+
+## Tag the image
+
+```
+docker tag image username/repository:tag
+```
+
+## Publish the image
+
+```
+docker push username/repository:tag
+```
+
+## Pull and run the image from the remote repository
+
+```
+$ docker run -p 4000:80 john/get-started:part1
+Unable to find image 'john/get-started:part1' locally
+part1: Pulling from orangesnap/get-started
+10a267c67f42: Already exists
+f68a39a6a5e4: Already exists
+9beaffc0cf19: Already exists
+3c1fe835fb6b: Already exists
+4c9f1fa8fcb8: Already exists
+ee7d8f576a14: Already exists
+fbccdcced46e: Already exists
+Digest: sha256:0601c866aab2adcc6498200efd0f754037e909e5fd42069adeff72d1e2439068
+Status: Downloaded newer image for john/get-started:part1
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+```
+
 ## Services
 
 A `docker-compose.yml` file is a YAML file that defines how Docker containers should behave in production.
